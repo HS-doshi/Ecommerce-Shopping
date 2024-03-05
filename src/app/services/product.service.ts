@@ -9,9 +9,8 @@ import { Observable } from 'rxjs';
 export class ProductService {
 
   response : Options[] =[];
-  constructor(private apiService : ApiService) {
+  constructor(private apiService : ApiService) {}
 
-  }
   // getProducts(){
   //   this.apiService.get<Options>('products')
   //   .subscribe((data)=>{
@@ -19,7 +18,8 @@ export class ProductService {
   //   },error=>{console.log(error)}
   //   )
   // }
-  getProduct = (url:string,params :PaginationParams):Observable<Products> =>{
+  getProducts = (url:string,params :PaginationParams)
+  :Observable<Products> =>{
     return this.apiService.get(url, {
       params,
       responseType: 'json',

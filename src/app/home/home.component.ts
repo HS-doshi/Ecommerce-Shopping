@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit{
 
   constructor(private productService : ProductService){}
 
-  //
   ngOnInit(): void {
       this.productService
       .getProducts('http://localhost:3000/clothes',{page: 0, perPage:5})

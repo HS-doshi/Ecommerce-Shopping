@@ -1,9 +1,23 @@
-<div class="column">
+<div class="column gap-1">
+  <!-- products section -->
   <div class="row wrap gap-1 space-between">
     <!-- products is variable & when
    do property binding must same = products name match! then it'll work. -->
     <app-product
-    *ngFor="let products of products" [product]="products">
+    *ngFor="let products of products"
+    [product]="products"
+    (productOutput)="onProductOutput($event)">
     </app-product>
+    <!-- General, Logic behind is input & output of component. -->
+  </div>
+
+  <!-- paginator -->
+  <div class="row gap-1 full-center">
+    <p-paginator
+      [rows]="rows"
+      [totalRecords]="totalPage"
+      [rowsPerPageOptions]="[4,8,12,16]"
+      (onPageChange)="onPageChnage($event)"
+    ></p-paginator>
   </div>
 </div>

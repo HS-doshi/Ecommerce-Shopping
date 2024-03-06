@@ -1,11 +1,11 @@
-<p>{{product.name}}</p>
 <div class="column gap-1 wrapper">
   <img [src]="product.image" alt="Product Thumbnail">
   <h2 class="title">{{product.name}}</h2>
-  <div class="row">
+  <div class="row" class="gap-05">
       <span class="price-label">Price : </span>
       <span class="price">{{product.price}}</span>
   </div>
+  <!-- ngModel  - is two way binding. -->
   <p-rating
    [(ngModel)]="product.rating"
   iconCancelClass="hidden"

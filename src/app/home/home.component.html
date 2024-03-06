@@ -4,7 +4,8 @@
   type="button"
   pButton icon="pi pi-plus"
   (click)="toggleAddPopup"
-  label="Add Product"  >
+  label="Add Product"
+  >
 
   </button>
   <!-- products section -->
@@ -28,6 +29,7 @@
       [totalRecords]="totalPage"
       [rowsPerPageOptions]="[4,8,12,16]"
       (onPageChange)="onPageChnage($event)"
+      #paginator
     ></p-paginator>
   </div>
   <!-- Edit-product -->
@@ -42,7 +44,7 @@
     <!-- Add Product -->
     <app-edit-popup
       [(display)]="displayAdd"
-      (confirm)="onConfirmEdit($event)"
+      (confirm)="onConfirmAdd($event)"
       header="Add Product"
     >
 

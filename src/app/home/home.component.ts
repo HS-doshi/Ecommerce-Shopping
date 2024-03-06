@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { __param } from 'tslib';
 import { Product, Products } from '../../types';
 import { ProductComponent } from '../components/product/product.component';
 import { CommonModule } from '@angular/common';
-import { PaginatorModule } from 'primeng/paginator';
+import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { EditPopupComponent } from '../components/edit-popup/edit-popup.component';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
@@ -34,15 +34,20 @@ export class HomeComponent implements OnInit {
   displayEdit: boolean = false;
   displayAdd: boolean = false;
 
+  @ViewChild('paginator')  paginator!: Paginator
+
   toggleEditPopup(product: Product) {
     this.selectedProduct = product;
     this.displayEdit = true;
   }
 
   toggleDeletePopup(product: Product) {
-    // this.selectedProduct = product;
-    this.deletProduct(product.id ?? 0);
+    if(!product.id){
+      return;
+    }
+    this.deletProduct(product.id)
   }
+  // above ?? 0 - used because product.id is undefined | optional.
   toggleAddPopup() {
     this.displayAdd = true;
   }
@@ -59,8 +64,12 @@ export class HomeComponent implements OnInit {
     if (!this.selectedProduct.id) {
       return;
     }
-    this.editProduct(product, this.selectedProduct.id ?? 0);
+    this.editProduct(product, this.selectedProduct.id);
     this.displayEdit = false;
+  }
+  onConfirmAdd(product:Product){
+    this.addProduct(product);
+    this.displayAdd = false;
   }
 
   onProductOutput(product: Product) {
@@ -69,12 +78,16 @@ export class HomeComponent implements OnInit {
   onPageChnage(event: any) {
     this.fetchProducts(event.page, event.rows);
   }
+  resetPaginator(){
+    this.paginator?.changePage(0);
+  }
 
   // .subscribe((products : Products)=>{
   //   this.products = products.items;
   //   this.totalPage = products.total;
   // })
-
+  // above is old method of subscribe data.
+  // next is updated method -  both are same  but next is good for better coding!
   fetchProducts(page: number, perPage: number) {
     this.productService
       .getProducts('http://localhost:3000/clothes', { page, perPage })
@@ -90,11 +103,12 @@ export class HomeComponent implements OnInit {
   }
   editProduct(product: Product, id: number) {
     this.productService
-      .editProduct(`http://localhost:3000/clothes/${id}`, { product })
+      .editProduct(`http://localhost:3000/clothes/${id}`, product)
       .subscribe({
         next: (data) => {
           console.log(data);
           this.fetchProducts(0, this.rows);
+          this.resetPaginator()
         },
         error: (error) => console.log(error),
       });
@@ -107,6 +121,7 @@ export class HomeComponent implements OnInit {
         next: (data) => {
           console.log(data);
           this.fetchProducts(0, this.rows);
+          this.resetPaginator()
         },
         error: (error) => {
           console.log(error);
@@ -115,11 +130,12 @@ export class HomeComponent implements OnInit {
   }
   addProduct(product: Product) {
     this.productService
-      .addProduct(`http://localhost:3000/clothes`, { product })
+      .addProduct(`http://localhost:3000/clothes`,  product )
       .subscribe({
         next: (data) => {
           console.log(data);
           this.fetchProducts(0, this.rows);
+          this.resetPaginator()
         },
         error: (error) => {
           console.log(error);

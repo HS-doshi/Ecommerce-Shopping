@@ -7,6 +7,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService } from 'primeng/api';
+import { ViewChild } from '@angular/core';
 @Component({
   selector: 'app-product',
   standalone: true,
@@ -25,6 +26,8 @@ export class ProductComponent implements OnInit {
 
   constructor(private confirmationService : ConfirmationService){}
 
+  @ViewChild('deleteButton') deleteButton: any;
+
   @Input() product!: Product;
   @Output() edit: EventEmitter<Product> = new EventEmitter<Product>();
   @Output() delete: EventEmitter<Product> = new EventEmitter<Product>();
@@ -34,6 +37,7 @@ export class ProductComponent implements OnInit {
   }
   confirmDelete(){
       this.confirmationService.confirm({
+        target : this.deleteButton.nativeElement,
         message : 'Are you sure want to Delete this product?',
         accept:()=>{
           this.deleteProduct();

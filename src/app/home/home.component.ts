@@ -28,13 +28,13 @@ import { FormsModule } from '@angular/forms';
 export class HomeComponent implements OnInit {
   constructor(private productService: ProductService) {}
 
+  @ViewChild('paginator')  paginator: Paginator|undefined;
   products: Product[] = [];
   totalPage: number = 0;
   rows: number = 4;
   displayEdit: boolean = false;
   displayAdd: boolean = false;
 
-  @ViewChild('paginator')  paginator!: Paginator
 
   toggleEditPopup(product: Product) {
     this.selectedProduct = product;
@@ -112,7 +112,6 @@ export class HomeComponent implements OnInit {
         },
         error: (error) => console.log(error),
       });
-    console.log(product, 'Edit :');
   }
   deletProduct(id: number) {
     this.productService
@@ -130,7 +129,7 @@ export class HomeComponent implements OnInit {
   }
   addProduct(product: Product) {
     this.productService
-      .addProduct(`http://localhost:3000/clothes`,  product )
+      .addProduct(`http://localhost:3000/clothes`,product)
       .subscribe({
         next: (data) => {
           console.log(data);
@@ -142,7 +141,7 @@ export class HomeComponent implements OnInit {
         },
       });
   }
-  ngOnInit(): void {
+  ngOnInit(){
     this.fetchProducts(0, this.rows);
   }
 }

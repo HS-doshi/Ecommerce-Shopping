@@ -1,1 +1,9 @@
-<p>home works!</p>
+<div class="column">
+  <div class="row wrap gap-1 space-between">
+    <!-- products is variable & when
+   do property binding must same = products name match! then it'll work. -->
+    <app-product
+    *ngFor="let products of products" [product]="products">
+    </app-product>
+  </div>
+</div>

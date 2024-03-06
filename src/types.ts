@@ -34,6 +34,7 @@ export interface Products {
   totalPage: number;
 }
 export interface Product {
+  id?:number,
   price: string;
   name: string;
   image: string;

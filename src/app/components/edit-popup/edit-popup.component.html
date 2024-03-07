@@ -4,7 +4,7 @@
   [modal]="true"
   [closable]="false"
 >
-  <div class="column gap-1">
+  <div class="column gap-1 form-wrapper">
     <!-- Name  -->
     <div class="row gap-05">
       <span class="price-label">Name : </span>
@@ -24,7 +24,7 @@
     </div>
 
     <!-- Rating -->
-    <p-rating [(ngModel)]="product.rating" iconCancelClass="hidden"> </p-rating>
+    <p-rating [(ngModel)]="product.rating" [readonly]="false" class="rating" iconCancelClass="hidden"> </p-rating>
   </div>
 
   <p-footer>

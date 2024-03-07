@@ -8,6 +8,8 @@ import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService } from 'primeng/api';
 import { ViewChild } from '@angular/core';
+import { TruncatePipe } from '../../pipes/truncate.pipe';
+import { PricePipe } from '../../pipes/price.pipe';
 @Component({
   selector: 'app-product',
   standalone: true,
@@ -17,6 +19,8 @@ import { ViewChild } from '@angular/core';
     FormsModule,
     PaginatorModule,
     ButtonModule,
+    TruncatePipe,
+    PricePipe
   ],
   providers:[ConfirmationService],
   templateUrl: './product.component.html',
@@ -31,6 +35,8 @@ export class ProductComponent implements OnInit {
   @Input() product!: Product;
   @Output() edit: EventEmitter<Product> = new EventEmitter<Product>();
   @Output() delete: EventEmitter<Product> = new EventEmitter<Product>();
+
+
 
   editProduct() {
     this.edit.emit(this.product);

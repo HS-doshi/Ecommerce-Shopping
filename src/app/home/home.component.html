@@ -3,8 +3,9 @@
   <button
   type="button"
   pButton icon="pi pi-plus"
-  (click)="toggleAddPopup"
+  (click)="toggleAddPopup()"
   label="Add Product"
+  class="add-product-btn"
   >
 
   </button>
@@ -47,6 +48,5 @@
       (confirm)="onConfirmAdd($event)"
       header="Add Product"
     >
-
     </app-edit-popup>
 </div>

@@ -1,7 +1,15 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { AboutUsComponent } from './modules/about-us/about-us/about-us.component';
 
 export const routes: Routes = [
   { path :'' , redirectTo:'home' , pathMatch:'full'},
-  { path : 'home' , component:HomeComponent}
+  { path : 'home' , component:HomeComponent},
+  {
+    path:'about-us' ,
+    loadChildren:()=>
+      import('./modules/about-us/about-us.module').then(
+        (m)=>m.AboutUsModule
+      )
+  },
 ];

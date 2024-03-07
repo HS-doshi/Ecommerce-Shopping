@@ -11,6 +11,6 @@ export class PricePipe implements PipeTransform {
       if(value.length > maxLength){
         return value.slice(0,maxLength) + ellipsis;
       }
-      return `${value}₹`;
+      return `${value} ₹`;
   }
 }
